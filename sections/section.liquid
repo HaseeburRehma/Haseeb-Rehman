@@ -1,0 +1,118 @@
+{% schema %}
+{
+  "name": "Gift Guide Hero",
+  "settings": [
+    { "type": "image_picker", "id": "top_image", "label": "Top Desktop Image" },
+    { "type": "image_picker", "id": "side_image", "label": "Right Image" },
+
+    { "type": "text", "id": "title", "label": "Hero Title", "default": "The Gift Guide" },
+    { "type": "textarea", "id": "desc", "label": "Hero Description", "default": "Discover joy. Your ultimate holiday gift destination." },
+
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "SHOP NOW →" },
+    { "type": "url", "id": "btn_link", "label": "Button Link" },
+
+    { "type": "text", "id": "footer", "label": "Footer Text", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" }
+  ]
+}
+{% endschema %}
+
+<style>
+/* ROOT */
+.gift-guide {
+  background: #fff;
+  width: 100%;
+  position: relative;
+}
+
+/* TOP IMAGE */
+.gift-guide__top img {
+  width: 100%;
+  display: block;
+}
+
+/* ROW */
+.gift-guide__row {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 0 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* TEXT */
+.gift-guide__content h1 {
+  font-size: 56px;
+  margin-bottom: 20px;
+}
+
+.gift-guide__content p {
+  max-width: 420px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.gift-guide__cta {
+  display: inline-block;
+  padding: 14px 32px;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  transition: all .3s ease;
+}
+
+.gift-guide__cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.25);
+}
+
+/* IMAGE */
+.gift-guide__image img {
+  width: 100%;
+}
+
+/* FOOTER */
+.gift-guide__footer {
+  text-align: center;
+  font-size: 12px;
+  padding: 16px;
+  border-top: 1px solid #eee;
+}
+
+@media(max-width:900px){
+  .gift-guide__top{display:none;}
+  .gift-guide__row{grid-template-columns:1fr;padding:30px 0;text-align:center;}
+  .gift-guide__image{margin-left:-180px;}
+}
+</style>
+
+<section class="gift-guide">
+
+  {% if section.settings.top_image %}
+    <div class="gift-guide__top">
+      <img src="{{ section.settings.top_image | image_url: width: 2000 }}">
+    </div>
+  {% endif %}
+
+  <div class="gift-guide__row">
+
+    <div class="gift-guide__content">
+      <h1>{{ section.settings.title }}</h1>
+      <p>{{ section.settings.desc }}</p>
+      <a href="{{ section.settings.btn_link }}" class="gift-guide__cta">
+        {{ section.settings.btn_text }}
+      </a>
+    </div>
+
+    <div class="gift-guide__image">
+      <img src="{{ section.settings.side_image | image_url: width: 1200 }}">
+    </div>
+
+  </div>
+
+  <div class="gift-guide__footer">
+    {{ section.settings.footer }}
+  </div>
+
+</section>
